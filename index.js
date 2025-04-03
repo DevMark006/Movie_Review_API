@@ -20,6 +20,12 @@ app.use(express.json());
 app.use("/movies", moviesRoutes);
 app.use("/reviews", reviewsRoutes);
 
+// Global error handling
+app.use((err, req, res, next) => {
+   console.error(err.stack);
+   res.status(500).json({error: "Something went wrong! Please try again."});
+});
+
 app.listen(PORT, () => {
    console.log(`Server running on port ${PORT}`);
 });
