@@ -35,16 +35,16 @@ An API for managing movies and movie reviews using node.js, express and postgres
 
 ## API End Points
 
-Movie Endpoints
+Movie Endpoints and Parameters
 
 **GET**   GET /movies?page=1&limit=10
 **POST**  POST /movies
 **PUT**   
-**DELETE**
+**DELETE** DELETE /movies/:id
 
-Reviews Endpoints
+Reviews Endpoints and Parameters
 
 **GET**   GET /reviews/:movie_id?page=1&limit=5
 **POST**  POST /reviews
 **PUT**   
-**DELETE**
+**DELETE** DELETE /reviews/:movie_id

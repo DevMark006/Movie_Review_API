@@ -52,4 +52,26 @@ router.get("/:movie_id", async (req, res) => {
    }
 });
 
+
+//Delete Movies using movie_id 
+router.delete('/:movie_id', async(req, res) => {
+   
+    const {movie_id} = req.params;
+  try {
+     const result = await pool.query("DELETE FROM reviews WHERE movie_id = $1 RETURNING*", [movie_id]);
+     res.json({
+      message: "Review Deleted Successfully",
+      reviews: result.rows[0]
+    });
+   } catch(err) {
+     console.error("Error deleting reviews: ", err);
+     res.status(500).json({
+      error: "Failed to delete reviews",
+      details: err.message
+    });
+   }
+});
+
+
+
 module.exports = router;
