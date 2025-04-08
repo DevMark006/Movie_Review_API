@@ -39,12 +39,12 @@ Movie Endpoints and Parameters
 
 **GET**   GET /movies?page=1&limit=10
 **POST**  POST /movies
-**PUT**   
+**PUT**   PUT /movies/:id
 **DELETE** DELETE /movies/:id
 
 Reviews Endpoints and Parameters
 
 **GET**   GET /reviews/:movie_id?page=1&limit=5
 **POST**  POST /reviews
-**PUT**   
+**PUT**   PUT /reviews/:id
 **DELETE** DELETE /reviews/:movie_id

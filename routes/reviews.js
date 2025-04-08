@@ -48,7 +48,10 @@ router.get("/:movie_id", async (req, res) => {
      res.json(result.rows);
     } catch (err) {
      console.error("Error fetching reviews:", err);
-     res.status(500).json({error: "Failed to fetch reviews", details: err.message});
+     res.status(500).json({
+      error: "Failed to fetch reviews", 
+      details: err.message
+    });
    }
 });
 
@@ -58,7 +61,7 @@ router.delete('/:movie_id', async(req, res) => {
    
     const {movie_id} = req.params;
   try {
-     const result = await pool.query("DELETE FROM reviews WHERE movie_id = $1 RETURNING*", [movie_id]);
+     const result = await pool.query("DELETE FROM reviews WHERE movie_id = $1 RETURNING *", [movie_id]);
      res.json({
       message: "Review Deleted Successfully",
       reviews: result.rows[0]
@@ -72,6 +75,20 @@ router.delete('/:movie_id', async(req, res) => {
    }
 });
 
-
+// Update the movie reviews
+router.put('/:id', async(req, res) => {
+    try {
+      const {id} = req.params;
+      const {reviewer_name, rating, comment} = req.body;
+      const result = await pool.query("UPDATE reviews SET reviewer_name = $1, rating = $2, comment = $3 WHERE id = $4 RETURNING *", [reviewer_name, rating, comment, id]);
+      res.status(200).json(result.rows[0]);
+    } catch(err) {
+      console.error("Error Updating Reviews", err);
+      res.status(500).json({
+        error: "Failed to Update Reviews", 
+        details: err.message
+      });
+    }
+});
 
 module.exports = router;
